@@ -1,0 +1,18 @@
+version: '2'
+
+services:
+  rsa:
+    build: ./rsa
+    ports:
+      - "127.0.0.1:8002:8000"
+    restart: always
+
+  deep:
+    build: ./WeNeedToGoDeeper
+    environment:
+      - DB_PATH=/db/user_agents.db
+    ports:
+      - "127.0.0.1:8003:80"
+    volumes:
+      - ../deep_db:/db
+    restart: always
