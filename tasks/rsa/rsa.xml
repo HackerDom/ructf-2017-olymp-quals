@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<quest series="RSA" id="RSA:100" proto="xmlquest-1.0">
+    <name>Взлом RSA</name>
+    <task type="html"><p>Похоже, хозяин этого <a href="http://rsa.qctf.ru/">сервера</a> полностью уверен в его защищённости. Убедите его в обратном. Мы уже сумели скачать <a href="/static/92f49e3bfa2abe29f0db421f307f5c34/crypto.py">код сервера</a>. Ваша задача — получить содержимое файла flag.txt</p></task>
+    <checker strict="yes">
+        <solution case="insensitive">RuCTF_f35110b8995f34c5629be</solution>
+    </checker>
+</quest>
