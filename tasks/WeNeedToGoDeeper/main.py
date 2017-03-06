@@ -10,7 +10,7 @@ STARTING_STRING = '''
 do you know that md5 of "ructf2017" is f94f38ab82c48353773b316a7a663e21?
 '''
 
-FLAG = "RuCTF:HarderBetterFasterStrongerUserAgent2017"
+FLAG = "RuCTF: HarderBetterFasterStrongerUserAgent2017"
 
 
 @app.route("/")
