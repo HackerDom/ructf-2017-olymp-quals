@@ -10,12 +10,12 @@ STARTING_STRING = '''
 do you know that md5 of "ructf2017" is f94f38ab82c48353773b316a7a663e21?
 '''
 
-FLAG = "RuCTF:HarderBetterFasterStronger_Agent_2017"
+FLAG = "RuCTF:HarderBetterFasterStrongerUserAgent2017"
 
 
 @app.route("/")
 def root_router():
-    return "Srsly?!", "200 goto root plus {}"\
+    return "Srly?! I hate guests, get out!", "200 goto root plus {}"\
         .format(sha1(STARTING_STRING.encode()).hexdigest())
 
 
@@ -26,7 +26,7 @@ def task_router(some_hash):
     # fix little and big user agents
     if user_agent == "" or len(user_agent) > 512:
         user_agent = "0orTooBig"
-    # fix all browser, lol
+    # fix all browsers, lol
     if "Mozilla" in user_agent or "Opera" in user_agent:
         return "Your browser is banned!", "403 banned"
 

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<quest series="WeNeedToGoDeeper" id="WeNeedToGoDeeper:100" proto="xmlquest-1.0">
+    <name>Странный сайт</name>
+    <task type="html"><p>Мы нашли интересный <a href="#">сайт</a> на просторах интернета. Но есть что-то странное в его ответах. Более того, его владелец очень не любит непрошенных гостей. Твоя задача - найти флаг:)</p></task>
+    <checker strict="yes">
+        <solution case="insensitive">HarderBetterFasterStrongerUserAgent2017</solution>
+    </checker>
+</quest>
