@@ -1,5 +1,6 @@
 import unittest
 import check
+import base64
 
 full_flag = 'FLAGIUDVVHMKHFFLVWGMWHBGSQAIOUHKOPVQBHXNRANDECXXIXWNLHICGOCWTBPS'
 flag_len = 64
@@ -79,6 +80,11 @@ class TestCheck(unittest.TestCase):
 	def test_check_partial_transform(self):
 		bytes = ''.encode('ascii')
 		self.assertFalse(check.check_partial_transform(bytes))
+
+	def test_transform(self):
+		answer_base64 = base64.b64encode(bytes('L\x00' + 71*'\x01', "ascii"))
+		answer = base64.b64decode(answer_base64)
+		self.assertTrue(check.check_partial_transform(answer))
 
 
 if __name__ == '__main__':

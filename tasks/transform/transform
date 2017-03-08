@@ -1,3 +1,7 @@
+#!/usr/bin/python3
+
+# Start content from check.py
+
 flag_len = 64
 flag_hash = "LQRHQTIOENUDHSFAWCBWKLUVBHAGXMHFNFHGAWXGKIBOSVNPGWIOVPDLVMXCXHIC"
 flag = "FLAGIUDVVHMKHFFLVWGMWHBGSQAIOUHKOPVQBHXNRANDECXXIXWNLHICGOCWTBPS"
@@ -15,29 +19,6 @@ def bwt(string, length):
 				sorted[j] = tmp
 	result = ''.join([buffer[sorted[i] + length - 1] for i in range(0, length)])
 	return result
-
-
-def bwt_revert(string, length):  # may return trash if input is not valid bft result
-	bytes = [ord(c) for c in string]
-	c = [0 for _ in range(0, 256)]
-	p = [None for _ in range(0, length)]
-	for i in range(0, length):
-		p[i] = c[bytes[i]]
-		c[bytes[i]] += 1
-	d = [0 for _ in range(0, 256)]
-	for i in range(1, 256):
-		d[i] = d[i - 1] + c[i - 1]
-	t = [None for _ in range(0, length)]
-	for i in range(0, length):
-		t[i] = d[bytes[i]] + p[i]
-	result_bytes = [None for _ in range(0, length)]
-	last_byte_position = length - 1
-	for i in range(length - 1, -1, -1):
-		result_bytes[i] = bytes[last_byte_position]
-		last_byte_position = t[last_byte_position]
-	result_chars = [chr(n) for n in result_bytes]
-	result_str = ''.join(result_chars)
-	return result_str
 
 
 def string_rotations(string):
@@ -85,13 +66,58 @@ def check(bytes):
 		return True
 	return False
 
+# End content from check.py
 
-def main():
-	filename = "solution"
-	f = open(filename, "rb")
-	bytes = f.read()
-	print("True" if check(bytes) else "False")
+
+import sys
+import base64
+
+ERR_OK = 0
+ERR_UNKNOWN_METHOD = 1
+ERR_CHECKER_ERROR = 2
+ERR_WRONG_ANSWER = 3
+
+CATEGORY = "reverse"
+SCORE = 100
+NAME = "Преобразование"
+HTML = '''Изучите <a href="/static/6s4itfmuvi9tmzfsrgxcv95oc2oheqec/transform.exe">исполняемый файл</a>." + \
+	" Флагом является последовательность байт, при передаче на вход исполняемому файлу которой в консоль печатается True," + \
+	" закодированная base64.'''
+
+
+def create_task():
+	sys.stdout.write("ID: 1\nhtml{0}\n".format(HTML))
+
+
+def check_answer(answer_base64):
+	try:
+		try:
+			b = bytes(answer_base64, "ascii")
+			answer = base64.b64decode(b)
+		except TypeError:
+			sys.exit(ERR_WRONG_ANSWER)
+		if check(answer):
+			sys.exit(ERR_OK)
+		else:
+			sys.exit(ERR_WRONG_ANSWER)
+	except Exception as e:
+		sys.stderr.write("Exception during checking answer: {0}\n".format(e))
+		sys.exit(ERR_WRONG_ANSWER)
 
 
 if __name__ == "__main__":
-	main()
+	method = sys.argv[1]
+
+	if method == "id":
+		sys.stdout.write("{0}:{1}\n".format(CATEGORY, SCORE))
+	elif method == "series":
+		print(CATEGORY)
+	elif method == "name":
+		print(NAME)
+	elif method == "create":
+		create_task()
+	elif method == 'user':
+		check_answer(sys.stdin.readline().strip())
+	else:
+		sys.stderr.write("Invalid method: {0}".format(method))
+		exit(ERR_UNKNOWN_METHOD)
